@@ -1,0 +1,163 @@
+/* Mobile First Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Menu lateral */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%; /* Altura total da tela em celulares */
+    background-color: #333;
+    color: white;
+    padding-top: 5rem;
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 1000;
+}
+
+.side-menu ul {
+    list-style: none;
+}
+
+.side-menu ul li {
+    /* padding: 1rem; */
+    padding:  .5rem 1.05rem;
+}
+
+.menu-sidebar {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    white-space: nowrap;
+    padding: .6rem .3rem;
+}
+
+.menu-sidebar:hover {
+    background-color: #444;
+}
+
+/* Overlay escuro */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 500;
+}
+
+/* Transição para mostrar o menu */
+.side-menu.open {
+    left: 0;
+}
+
+/* Transição para mostrar o overlay */
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+main {
+    padding: 2rem;
+    flex: 1;
+}
+
+/* Layout para telas maiores */
+@media (min-width: 768px) {
+    .side-menu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh; /* Altura total da tela para dispositivos maiores */
+        width: 60px; /* Largura padrão retraída */
+        transition: width 0.3s ease;
+    }
+
+    main {
+        margin-left: 60px; /* Margem quando a sidebar está retraída */
+        transition: margin-left 0.3s ease;
+    }
+
+    .side-menu.expanded {
+        width: 250px;
+    }
+
+    .side-menu.expanded + main {
+        margin-left: 250px;
+    }
+
+    header {
+        justify-content: flex-end;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .overlay {
+        display: none;
+    }
+
+    /* Ocultar o menu de navegação quando retraído */
+    .side-menu.collapsed .titulo-menu-sidebar {
+    /* .side-menu.collapsed ul { */
+        display: none;
+    }
+
+    /* Estilo do botão para expandir/retrair o menu */
+    .expand-toggle {
+        /* background: none; */
+        border: none;
+        color: white;
+        font-size: .8rem;
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        background-color: #982323;
+        padding: 0.5rem;
+        border-radius: 50%;
+        z-index: 1100;
+        right: -15px; 
+    }
+
+    .side-menu.expanded .expand-toggle {
+        transform: rotate(180deg); /* Rotaciona o botão quando expandido */
+    }
+
+    .titulo-menu-sidebar {
+        /* display: none; */
+    }
+}
